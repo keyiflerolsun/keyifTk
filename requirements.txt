@@ -1,0 +1,7 @@
+tk
+auto-py-to-exe
+pyinstaller
+cx_freeze
+nuitka
+setuptools==57.5.0
+pyminifier
