@@ -1,7 +1,12 @@
 tk
-auto-py-to-exe
-pyinstaller
-cx_freeze
+
 nuitka
+imageio
+zstandard
+
+pyinstaller
+auto-py-to-exe
+
+cx_freeze
 setuptools==57.5.0
 pyminifier

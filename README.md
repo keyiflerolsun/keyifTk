@@ -9,19 +9,19 @@ Tkinter Taban Dosyaları
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/keyiflerolsun/)
 
-## 🚀 Kurulum
+## 🚀 Derleme için Kopya Kağıdı
 
 ```bash
-# Yüklemek
-git clone https://github.com/keyiflerolsun/keyifTk
+## Linux
+python3 -m nuitka --onefile --follow-imports --include-plugin-directory=Temalar --windows-icon-from-ico=logo.png basla.py
 
-cd keyifTk
-
-python -m nuitka --onefile --follow-imports --include-plugin-directory=Temalar --windows-icon-from-ico=logo.png basla.py
+## Windows
+python -m nuitka --plugin-enable=tk-inter --windows-disable-console --onefile --follow-imports --include-plugin-directory=Temalar --windows-icon-from-ico=logo.png basla.py
 
 pyinstaller --noconfirm --onefile --windowed --icon "logo.png" --hidden-import "tkinter" --add-data "Temalar;Temalar"  "basla.py"
 
 pyminifier --gzip --lzma --destdir=tmp/. *.py
+
 ```
 
 ## 🌐 Telif Hakkı ve Lisans
