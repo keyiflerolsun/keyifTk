@@ -9,7 +9,11 @@
 
 ## 🚀 Derleme için Kopya Kağıdı
 
-```bash
+- [Nuitka Windows MSI Installer](https://nuitka.net/pages/download.html#id5)
+- [MinGW64 Online Installer](https://sourceforge.net/projects/mingw-w64/files)
+- [Creating a Stand Alone Executable (.exe) from a Python Script by Nuitka (Manual How To Windows)](https://www.youtube.com/watch?v=lCpvyfSwq5A)
+
+```ps1
 ## Linux
 python3 -m nuitka --assume-yes-for-downloads --onefile --follow-imports --include-data-dir=Temalar=Temalar --include-data-file=logo.png=logo.png --linux-onefile-icon=logo.png basla.py
 
