@@ -1,4 +1,5 @@
 # Copyright (c) 2021 rdbende <rdbende@gmail.com>
+# https://github.com/rdbende/Azure-ttk-theme
 
 # The Azure theme is a beautiful modern ttk theme inspired by Microsoft's fluent design.
 
@@ -289,8 +290,8 @@ namespace eval ttk::theme::Azure_dark {
             [list $I(off-basic) \
                 {selected disabled} $I(on-basic) \
                 disabled $I(off-basic) \
-                {pressed selected} $I(on-basic) \
-                {active selected} $I(on-basic) \
+                {pressed selected} $I(on-accent) \
+                {active selected} $I(on-accent) \
                 selected $I(on-accent) \
                 {pressed !selected} $I(off-basic) \
                 active $I(off-basic) \

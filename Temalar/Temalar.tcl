@@ -1,4 +1,5 @@
 # Copyright © 2021 rdbende <rdbende@gmail.com>
+# https://github.com/rdbende
 
 source [file join [file dirname [info script]] . Sun-Valley_light.tcl]
 source [file join [file dirname [info script]] . Sun-Valley_dark.tcl]
@@ -47,7 +48,7 @@ proc set_theme {mode} {
         option add *font [ttk::style lookup . -font]
         option add *Menu.selectcolor $colors(-fg)
         option add *Menu.background #2f2f2f
-    
+
 	} elseif {$mode == "Sun-Valley_light"} {
 		ttk::style theme use "Sun-Valley_light"
 
@@ -86,6 +87,7 @@ proc set_theme {mode} {
         option add *font [ttk::style lookup . -font]
         option add *Menu.selectcolor $colors(-fg)
         option add *Menu.background #e7e7e7
+
 	} elseif {$mode == "Azure_dark"} {
 		ttk::style theme use "Azure_dark"
 
@@ -163,5 +165,6 @@ proc set_theme {mode} {
 
         option add *font [ttk::style lookup . -font]
         option add *Menu.selectcolor $colors(-fg)
+
 	}
 }

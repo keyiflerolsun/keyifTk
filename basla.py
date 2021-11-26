@@ -88,6 +88,7 @@ class Uygulama(ttk.Frame):
         # Giriş Alanı
         giris_alani = ttk.Entry(inputlar_frame)
         giris_alani.insert(0, "Giriş Alanı")
+        # giris_alani.state(["invalid"])
         giris_alani.grid(row=0, column=0, padx=5, pady=(0, 10), sticky="ew")
         giris_alani.focus()
 
@@ -175,6 +176,7 @@ class Uygulama(ttk.Frame):
             yscrollcommand = scrollbar.set,
             columns        = (1),
             height         = 10,
+            # show           = "tree"
         )
         treeview.pack(expand=True, fill="both")
         scrollbar.config(command=treeview.yview)
@@ -259,8 +261,8 @@ if __name__ == '__main__':
 
     # Pencere için bir minimum boyut ayarlayın ve ortasına yerleştirin
     pencere.update()
-    p_genislik  = pencere.winfo_width() if pencere.winfo_width() > 200 else 200
-    p_yukseklik = pencere.winfo_height() if pencere.winfo_height() > 200 else 200
+    p_genislik  = max(pencere.winfo_width(), 200)
+    p_yukseklik = max(pencere.winfo_height(), 200)
     pencere.minsize(p_genislik, p_yukseklik)
     x_kordinat = int((pencere.winfo_screenwidth() / 2) - (p_genislik / 2))
     y_kordinat = int((pencere.winfo_screenheight() / 2) - (p_yukseklik / 2))

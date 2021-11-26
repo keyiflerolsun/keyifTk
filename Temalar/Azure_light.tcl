@@ -1,4 +1,5 @@
 # Copyright (c) 2021 rdbende <rdbende@gmail.com>
+# https://github.com/rdbende/Azure-ttk-theme
 
 # The Azure theme is a beautiful modern ttk theme inspired by Microsoft's fluent design.
 
