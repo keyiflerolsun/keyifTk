@@ -1,10 +1,81 @@
 # Bu araç @keyiflerolsun tarafından | @KekikAkademi için yazılmıştır.
 
 import tkinter as tk
+from tkinter import messagebox
 from base64 import encodebytes
 from tkinter import ttk
 from datetime import datetime
-from functools import partial
+
+import threading, time
+
+_dur_event = None
+
+class SahteLog(threading.Thread):
+    def __init__(self, treeview:ttk.Treeview):
+        super().__init__()
+        self._dur_event = threading.Event()
+        self.treeview   = treeview
+
+        global _dur_event
+        _dur_event = self._dur_event
+
+    def run(self):
+        say = 1
+
+        bilinen_zaman = -1
+        while not self._dur_event.is_set():
+            simdiki_zaman = datetime.now()
+
+            if bilinen_zaman != simdiki_zaman.second:
+                bilinen_zaman = simdiki_zaman.second
+
+                if simdiki_zaman.second % 5 == 0:
+                    self.treeview.insert(parent=say-1, index="end", iid=say, text=simdiki_zaman.strftime("%X"), values="HATA")
+                else:
+                    self.treeview.insert(parent="", index="end", iid=say, text=simdiki_zaman.strftime("%X"), values="BİLGİ")
+
+                # Scrollbar Kaydır
+                self.treeview.see(say)
+
+                say += 1
+
+            time.sleep(0.2)
+
+class LogAlani(ttk.Frame):
+    def __init__(self, frame):
+
+        # Scrollbar
+        scrollbar = ttk.Scrollbar(frame)
+        scrollbar.pack(side="right", fill="y")
+
+        # Treeview
+        treeview = ttk.Treeview(
+            frame,
+            selectmode     = "browse",
+            yscrollcommand = scrollbar.set,
+            columns        = (1),
+            height         = 10,
+            # show           = "tree"       # Başlıkları Gizlemek İçin
+        )
+        treeview.pack(expand=True, fill="both")
+        scrollbar.config(command=treeview.yview)
+
+        # Treeview Kolon
+        treeview.column("#0", anchor="center", width=160)
+        treeview.column(1,    anchor="center", width=60)
+
+        # Treeview Başlık
+        treeview.heading("#0", text="Zaman", anchor="center")
+        treeview.heading(1,    text="Log",  anchor="center")
+
+        loglar = [
+            (0, datetime.now().strftime("%d-%m-%Y %X"), "Start")
+        ]
+        for satir in loglar:
+            treeview.insert(parent="", index="end", iid=satir[0], text=satir[1], values=satir[2])
+
+        self.SahteLog = SahteLog(treeview)
+        self.SahteLog.start()
 
 class Uygulama(ttk.Frame):
     def __init__(self, parent):
@@ -162,38 +233,10 @@ class Uygulama(ttk.Frame):
 
     def treeview_alani(self):
         # Treeview için Çerçeve Oluşturun
-        treeview_frame = ttk.Labelframe(self, text="TreeView")
+        treeview_frame = ttk.Labelframe(self, text="TreeView Log Alan")
         treeview_frame.grid(row=0, column=2, padx=(20, 0), pady=(20, 0), sticky="nsew", rowspan=1)
 
-        # Scrollbar
-        scrollbar = ttk.Scrollbar(treeview_frame)
-        scrollbar.pack(side="right", fill="y")
-
-        # Treeview
-        treeview = ttk.Treeview(
-            treeview_frame,
-            selectmode     = "browse",
-            yscrollcommand = scrollbar.set,
-            columns        = (1),
-            height         = 10,
-            # show           = "tree"
-        )
-        treeview.pack(expand=True, fill="both")
-        scrollbar.config(command=treeview.yview)
-
-        # Treeview column
-        treeview.column("#0", anchor="center", width=160)
-        treeview.column(1,    anchor="center", width=60)
-
-        # Treeview headings
-        treeview.heading("#0", text="TIME", anchor="center")
-        treeview.heading(1,    text="LOG",  anchor="center")
-
-        loglar = [
-            (0, datetime.now().strftime("%d-%m-%Y %X"), "Start")
-        ]
-        for satir in loglar:
-            treeview.insert(parent="", index="end", iid=satir[0], text=satir[1], values=satir[2])
+        LogAlani(treeview_frame)
 
     def sekme_alani(self):
         # Sekme Alanı için Çerçeve Oluşturun
@@ -232,12 +275,20 @@ class Uygulama(ttk.Frame):
         tab_4 = ttk.Frame(notebook)
         notebook.add(tab_4, text="Tab 4")
 
+def pencereyi_kapat():
+    if messagebox.askokcancel("Program Kapanıyor", "Bunu Yapmak İstediğine Emin Misin?"):
+        _dur_event.set()
+        pencere.destroy()
+
 if __name__ == '__main__':
     pencere = tk.Tk()
 
+    # Pencere Kapanmadan Önce Fonksiyon Tetiklemek
+    pencere.protocol("WM_DELETE_WINDOW", pencereyi_kapat)
+
     # Pencere Özellikleri
     pencere.title("keyiflerolsun GUI")
-    pencere.bind("<Escape>", lambda event: pencere.quit()) # ESC ile çıkış
+    pencere.bind("<Escape>", lambda event: pencereyi_kapat()) # ESC ile çıkış
     pencere.bind("<F11>", lambda event: pencere.attributes("-fullscreen", not pencere.attributes("-fullscreen"))) # Tam Ekran
 
     # Pencere İkonu
