@@ -184,16 +184,25 @@ class Uygulama(ttk.Frame):
         ayrac.grid(row=11, column=0, padx=(20, 10), pady=10, sticky="ew")
 
         # Cetvel
-        self.cetvel_d = tk.DoubleVar(value=75.0)
-        cetvel = ttk.Scale(
-            inputlar_frame, to=100, from_=0, variable=self.cetvel_d,
-            command=lambda event: self.cetvel_d.set(self.cetvel_d.get()),
-        )
+        self.cetvel_degeri   = 75
+        self.cetvel_degisken = tk.DoubleVar(value=self.cetvel_degeri)
+
+        def deger_dondur(event):
+            self.cetvel_degeri = self.cetvel_degisken.get()
+
+            self.cetvel_degisken.set(self.cetvel_degeri)
+            self.progress_text.config(text=f"Değer : {self.cetvel_degeri}")
+
+        cetvel = ttk.Scale(inputlar_frame, to=100, from_=0, variable=self.cetvel_degisken, command=deger_dondur)
         cetvel.grid(row=12, column=0, padx=5, pady=10, sticky="nsew")
 
         # Progressbar
-        progress = ttk.Progressbar(inputlar_frame, value=0, variable=self.cetvel_d, mode="determinate")
+        progress = ttk.Progressbar(inputlar_frame, value=0, variable=self.cetvel_degisken, mode="determinate")
         progress.grid(row=13, column=0, padx=5, pady=10, sticky="nsew")
+
+        # Progressbar Label
+        self.progress_text = ttk.Label(inputlar_frame, text=f"Değer : {self.cetvel_degeri}")
+        self.progress_text.grid(row=14, column=0, pady=5, sticky="s")
 
     def treeview_alani(self):
         # Treeview için Çerçeve Oluşturun
@@ -254,7 +263,7 @@ class Uygulama(ttk.Frame):
             tab_1,
             text    = "@keyiflerolsun",
             justify = "center",
-            font    = ("-size", 15, "-weight", "bold"),
+            font    = ("-family", "JetBrainsMono NF", "-size", 15, "-weight", "bold"),
         )
         tab_1_label.grid(row=1, column=0, pady=10, columnspan=2)
 
@@ -302,7 +311,7 @@ if __name__ == '__main__':
     pencere.tk.call("set_theme", "Sun-Valley_dark")
 
     # Uygulamamıza Pencerimize Ekleyelim
-    uygulama = Uygulama(pencere)
+    uygulama = Uygulama(pencere)    
     uygulama.pack(fill="both", expand=True)
 
     # Pencere için bir minimum boyut ayarlayın ve ortasına yerleştirin

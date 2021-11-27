@@ -6,6 +6,9 @@ source [file join [file dirname [info script]] . Sun-Valley_dark.tcl]
 source [file join [file dirname [info script]] . Azure_light.tcl]
 source [file join [file dirname [info script]] . Azure_dark.tcl]
 
+font create JetBrainsMono -family "JetBrainsMono NF"
+option add *font JetBrainsMono
+
 option add *tearOff 0
 
 proc set_theme {mode} {
@@ -30,7 +33,7 @@ proc set_theme {mode} {
             -insertwidth 1 \
             -insertcolor $colors(-fg) \
             -fieldbackground $colors(-selectbg) \
-            -font {"Segoe Ui" 10} \
+            -font {"JetBrainsMono NF" 10} \
             -borderwidth 1 \
             -relief flat
 
@@ -70,7 +73,7 @@ proc set_theme {mode} {
             -insertwidth 1 \
             -insertcolor $colors(-fg) \
             -fieldbackground $colors(-selectbg) \
-            -font {"Segoe Ui" 10} \
+            -font {"JetBrainsMono NF" 10} \
             -borderwidth 0 \
             -relief flat
 
@@ -110,7 +113,7 @@ proc set_theme {mode} {
             -insertcolor $colors(-fg) \
             -insertwidth 1 \
             -fieldbackground $colors(-selectbg) \
-            -font {"Segoe Ui" 10} \
+            -font {"JetBrainsMono NF" 10} \
             -borderwidth 1 \
             -relief flat
 
@@ -149,7 +152,7 @@ proc set_theme {mode} {
             -insertcolor $colors(-fg) \
             -insertwidth 1 \
             -fieldbackground $colors(-selectbg) \
-            -font {"Segoe Ui" 10} \
+            -font {"JetBrainsMono NF" 10} \
             -borderwidth 1 \
             -relief flat
 
