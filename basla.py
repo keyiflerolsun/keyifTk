@@ -41,42 +41,6 @@ class SahteLog(threading.Thread):
 
             time.sleep(0.2)
 
-class LogAlani(ttk.Frame):
-    def __init__(self, frame):
-
-        # Scrollbar
-        scrollbar = ttk.Scrollbar(frame)
-        scrollbar.pack(side="right", fill="y")
-
-        # Treeview
-        treeview = ttk.Treeview(
-            frame,
-            selectmode     = "browse",
-            yscrollcommand = scrollbar.set,
-            columns        = (1),
-            height         = 10,
-            # show           = "tree"       # Başlıkları Gizlemek İçin
-        )
-        treeview.pack(expand=True, fill="both")
-        scrollbar.config(command=treeview.yview)
-
-        # Treeview Kolon
-        treeview.column("#0", anchor="center", width=160)
-        treeview.column(1,    anchor="center", width=60)
-
-        # Treeview Başlık
-        treeview.heading("#0", text="Zaman", anchor="center")
-        treeview.heading(1,    text="Log",  anchor="center")
-
-        loglar = [
-            (0, datetime.now().strftime("%d-%m-%Y %X"), "Start")
-        ]
-        for satir in loglar:
-            treeview.insert(parent="", index="end", iid=satir[0], text=satir[1], values=satir[2])
-
-        self.SahteLog = SahteLog(treeview)
-        self.SahteLog.start()
-
 class Uygulama(ttk.Frame):
     def __init__(self, parent):
         ttk.Frame.__init__(self)
@@ -97,7 +61,7 @@ class Uygulama(ttk.Frame):
         sag_tik.add_command(label="Sun Valley Light", command=lambda : self.tk.call("set_theme", "Sun-Valley_light"))
         sag_tik.add_command(label="Sun Valley Dark", command=lambda : self.tk.call("set_theme", "Sun-Valley_dark"))
         sag_tik.add_separator()
-        sag_tik.add_command(label="Çıkış", command=self.quit)
+        sag_tik.add_command(label="Çıkış", command=pencereyi_kapat)
         self.bind("<Button-3>", lambda e: sag_tik.tk_popup(e.x_root, e.y_root))
 
         # Widgetlar
@@ -236,7 +200,38 @@ class Uygulama(ttk.Frame):
         treeview_frame = ttk.Labelframe(self, text="TreeView Log Alan")
         treeview_frame.grid(row=0, column=2, padx=(20, 0), pady=(20, 0), sticky="nsew", rowspan=1)
 
-        LogAlani(treeview_frame)
+        # Scrollbar
+        scrollbar = ttk.Scrollbar(treeview_frame)
+        scrollbar.pack(side="right", fill="y")
+
+        # Treeview
+        treeview = ttk.Treeview(
+            treeview_frame,
+            selectmode     = "browse",
+            yscrollcommand = scrollbar.set,
+            columns        = (1),
+            height         = 10,
+            # show           = "tree"       # Başlıkları Gizlemek İçin
+        )
+        treeview.pack(expand=True, fill="both")
+        scrollbar.config(command=treeview.yview)
+
+        # Treeview Kolon
+        treeview.column("#0", anchor="center", width=160)
+        treeview.column(1,    anchor="center", width=60)
+
+        # Treeview Başlık
+        treeview.heading("#0", text="Zaman", anchor="center")
+        treeview.heading(1,    text="Log",  anchor="center")
+
+        loglar = [
+            (0, datetime.now().strftime("%d-%m-%Y %X"), "Start")
+        ]
+        for satir in loglar:
+            treeview.insert(parent="", index="end", iid=satir[0], text=satir[1], values=satir[2])
+
+        sahte_log = SahteLog(treeview)
+        sahte_log.start()
 
     def sekme_alani(self):
         # Sekme Alanı için Çerçeve Oluşturun
