@@ -311,7 +311,7 @@ if __name__ == '__main__':
     pencere.tk.call("set_theme", "Sun-Valley_dark")
 
     # Uygulamamıza Pencerimize Ekleyelim
-    uygulama = Uygulama(pencere)    
+    uygulama = Uygulama(pencere)
     uygulama.pack(fill="both", expand=True)
 
     # Pencere için bir minimum boyut ayarlayın ve ortasına yerleştirin
