@@ -56,10 +56,10 @@ class Uygulama(ttk.Frame):
 
         # Sağ Tık Menüsü
         sag_tik = tk.Menu(self, tearoff=False)
-        sag_tik.add_command(label="Azure Light", command=lambda : self.tk.call("set_theme", "Azure_light"))
-        sag_tik.add_command(label="Azure Dark", command=lambda : self.tk.call("set_theme", "Azure_dark"))
+        sag_tik.add_command(label="Azure Light",      command=lambda : self.tk.call("set_theme", "Azure_light"))
+        sag_tik.add_command(label="Azure Dark",       command=lambda : self.tk.call("set_theme", "Azure_dark"))
         sag_tik.add_command(label="Sun Valley Light", command=lambda : self.tk.call("set_theme", "Sun-Valley_light"))
-        sag_tik.add_command(label="Sun Valley Dark", command=lambda : self.tk.call("set_theme", "Sun-Valley_dark"))
+        sag_tik.add_command(label="Sun Valley Dark",  command=lambda : self.tk.call("set_theme", "Sun-Valley_dark"))
         sag_tik.add_separator()
         sag_tik.add_command(label="Çıkış", command=pencereyi_kapat)
         self.bind("<Button-3>", lambda e: sag_tik.tk_popup(e.x_root, e.y_root))
@@ -231,13 +231,14 @@ class Uygulama(ttk.Frame):
 
         # Treeview Başlık
         treeview.heading("#0", text="Zaman", anchor="center")
-        treeview.heading(1,    text="Log",  anchor="center")
+        treeview.heading(1,    text="Log",   anchor="center")
 
         loglar = [
             (0, datetime.now().strftime("%d-%m-%Y %X"), "Start")
         ]
         for satir in loglar:
-            treeview.insert(parent="", index="end", iid=satir[0], text=satir[1], values=satir[2])
+            _index_id, _tarih, _olay = satir
+            treeview.insert(parent="", index="end", iid=_index_id, text=_tarih, values=_olay)
 
         sahte_log = SahteLog(treeview)
         sahte_log.start()
@@ -284,6 +285,14 @@ def pencereyi_kapat():
         _dur_event.set()
         pencere.destroy()
 
+def tam_ekran():
+    pencere.attributes("-fullscreen", not pencere.attributes("-fullscreen"))
+
+    if pencere.attributes("-fullscreen"):
+        uygulama.sizegrip.grid(row=100, column=100, padx=(0, 5), pady=(0, 5))        
+    else:
+        uygulama.sizegrip.grid_forget()
+
 if __name__ == '__main__':
     pencere = tk.Tk()
 
@@ -293,7 +302,7 @@ if __name__ == '__main__':
     # Pencere Özellikleri
     pencere.title("keyiflerolsun GUI")
     pencere.bind("<Escape>", lambda event: pencereyi_kapat()) # ESC ile çıkış
-    pencere.bind("<F11>", lambda event: pencere.attributes("-fullscreen", not pencere.attributes("-fullscreen"))) # Tam Ekran
+    pencere.bind("<F11>",    lambda event: tam_ekran())       # Tam Ekran
 
     # Pencere İkonu
     logo_b64 = encodebytes(open("logo.png", "rb").read())
@@ -319,7 +328,7 @@ if __name__ == '__main__':
     p_genislik  = max(pencere.winfo_width(), 200)
     p_yukseklik = max(pencere.winfo_height(), 200)
     pencere.minsize(p_genislik, p_yukseklik)
-    x_kordinat = int((pencere.winfo_screenwidth() / 2) - (p_genislik / 2))
+    x_kordinat = int((pencere.winfo_screenwidth()  / 2) - (p_genislik  / 2))
     y_kordinat = int((pencere.winfo_screenheight() / 2) - (p_yukseklik / 2))
     pencere.geometry(f"+{x_kordinat}+{y_kordinat - 20}")
 
