@@ -5,6 +5,12 @@
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/keyiflerolsun/)
 
+## Ekran Görüntüleri
+
+![Linux](Resimler/nuitka_linux.png)
+
+![Windows](Resimler/nuitka_windows.png)
+
 ## 🚀 Derleme için Kopya Kağıdı
 
 - [Nuitka Windows MSI Installer](https://nuitka.net/pages/download.html#id5)

@@ -19,7 +19,7 @@ namespace eval ttk::theme::Azure_light {
         }
 
         load_images [file join [file dirname [info script]] Azure_light]
-        
+
         array set colors {
             -fg             "#000000"
             -bg             "#ffffff"

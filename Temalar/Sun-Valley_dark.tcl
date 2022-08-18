@@ -356,6 +356,19 @@ namespace eval ttk::theme::Sun-Valley_dark {
                 active $images(radio-unsel-hover) \
             ] -width 26 -sticky w
 
+        ttk::style configure Menu.TRadiobutton -padding 4
+
+        ttk::style element create Menu.Radiobutton.indicator image \
+            [list $images(radio-unsel-rest) \
+                {selected disabled} $images(radio-disabled) \
+                disabled $images(radio-unsel-disabled) \
+                {pressed selected} $images(radio-pressed) \
+                {active selected} $images(radio-hover) \
+                selected $images(radio-rest) \
+                {pressed !selected} $images(radio-unsel-pressed) \
+                active $images(radio-unsel-hover) \
+            ] -width 26 -sticky w
+
         # Scrollbar
         ttk::style element create Horizontal.Scrollbar.trough image $images(scroll-hor-trough) -sticky ew -border 6
         ttk::style element create Horizontal.Scrollbar.thumb image $images(scroll-hor-thumb) -sticky ew -border 3
